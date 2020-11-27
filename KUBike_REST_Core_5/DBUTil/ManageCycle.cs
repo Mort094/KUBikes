@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using lib;
 
@@ -28,6 +29,85 @@ namespace KUBike_REST_Core_5.DBUTil
             return cycles;
         }
 
+        private const string GET_ONE_SQL = "select * from cycles where cycle_id = @id";
+        public Cycle HentEn(int id)
+        {
+            Cycle cycle = new Cycle();
+
+            using (SqlConnection conn = new SqlConnection (connString))
+            {
+                conn.Open();
+
+                using(SqlCommand cmd = new SqlCommand(GET_ONE_SQL, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        cycle = ReadNextCycle(reader);
+                    }
+                   
+                }
+
+            }
+            return cycle;
+        }
+
+        private const string UPDATESTATUS_SQL = "update cycles set FK_cycle_status_id = @start where cycle_id = @id";
+        public bool StartRute(int id)
+        {
+            bool OK = true;
+
+            using(SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+
+                using(SqlCommand cmd = new SqlCommand(UPDATESTATUS_SQL, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Nr", id);
+                    cmd.Parameters.AddWithValue("@start", 1);
+
+                    try
+                    {
+                        int rows = cmd.ExecuteNonQuery();
+                        OK = rows == 1;
+                    }
+                    catch (Exception ex)
+                    {
+                        OK = false;
+                    }
+                }
+            }
+            return OK;
+        }
+        public bool SlutRute(int id)
+        {
+            bool OK = true;
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(UPDATESTATUS_SQL, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Nr", id);
+                    cmd.Parameters.AddWithValue("@start", 2);
+
+                    try
+                    {
+                        int rows = cmd.ExecuteNonQuery();
+                        OK = rows == 1;
+                    }
+                    catch (Exception ex)
+                    {
+                        OK = false;
+                    }
+                }
+            }
+            return OK;
+        }
+
+
         private Cycle ReadNextCycle(SqlDataReader reader)
         {
             var c = new Cycle();
@@ -40,5 +120,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
             return c;
         }
+
+
     }
 }

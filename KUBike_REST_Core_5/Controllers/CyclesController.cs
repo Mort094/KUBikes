@@ -24,7 +24,7 @@ namespace KUBike_REST_Core_5.Controllers
         [HttpGet("{id}")]
         public string Get(int id)
         {
-            return "value";
+            mgr.HentEn(id);
         }
 
         //// POST api/<CyclesController>
@@ -32,13 +32,19 @@ namespace KUBike_REST_Core_5.Controllers
         //public void Post([FromBody] string value)
         //{
         //}
+        
+        //PUT api/<CyclesController>/5
+        [HttpPut("{id}")]
+        public bool Start(int id)
+        {
+            return mgr.StartRute(id);
+        }
 
-        //// PUT api/<CyclesController>/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
+        [HttpPut("{id}")]
+        public bool Slut(int id)
+        {
+            return mgr.SlutRute(id);
+        }
         //// DELETE api/<CyclesController>/5
         //[HttpDelete("{id}")]
         //public void Delete(int id)
