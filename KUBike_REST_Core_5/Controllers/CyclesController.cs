@@ -24,7 +24,7 @@ namespace KUBike_REST_Core_5.Controllers
         [HttpGet("{id}")]
         public Cycle Get(int id)
         {
-            mgr.HentEn(id);
+            return mgr.HentEn(id);
         }
 
         //// POST api/<CyclesController>
