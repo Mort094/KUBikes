@@ -34,13 +34,16 @@ namespace KUBike_REST_Core_5.Controllers
         //}
         
         //PUT api/<CyclesController>/5
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("start/{id}")]
+
         public bool Start(int id)
         {
             return mgr.StartRute(id);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("slut/{id}")]
         public bool Slut(int id)
         {
             return mgr.SlutRute(id);
