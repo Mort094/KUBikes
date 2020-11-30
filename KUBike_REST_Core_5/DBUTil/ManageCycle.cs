@@ -10,7 +10,7 @@ namespace KUBike_REST_Core_5.DBUTil
         private const string connString =
             @"Server=tcp:mort-db-server.database.windows.net;Initial Catalog=mort-db;User ID=mort-admin;Password=Secret1!;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        private const string GET_ALL_SQL = "select * from Cycles where FK_cycle_status_id = 2";
+        private const string GET_ALL_SQL = "select * from cycles where cycle_status_id = 2";
 
         public IList<Cycle> HentAlle()
         {
