@@ -54,19 +54,19 @@ namespace KUBike_REST_Core_5.DBUTil
         }
 
         private const string UPDATESTATUS_SQL = "update cycles set FK_cycle_status_id = @start where cycle_id = @id";
+        
         public bool StartRute(int id)
         {
             bool OK = true;
 
-            using(SqlConnection conn = new SqlConnection(connString))
+            using (SqlConnection conn = new SqlConnection(connString))
             {
                 conn.Open();
 
-                using(SqlCommand cmd = new SqlCommand(UPDATESTATUS_SQL, conn))
+                using (SqlCommand cmd = new SqlCommand(UPDATESTATUS_SQL, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@start", 1);
-
                     try
                     {
                         int rows = cmd.ExecuteNonQuery();
@@ -77,12 +77,12 @@ namespace KUBike_REST_Core_5.DBUTil
                         OK = false;
                     }
                 }
+                return OK;
             }
-            return OK;
         }
 
-        public bool SlutRute(int id)
-        {
+            public bool SlutRute(int id)
+            {
             bool OK = true;
 
             using (SqlConnection conn = new SqlConnection(connString))

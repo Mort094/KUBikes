@@ -16,6 +16,11 @@ namespace lib
             User_id = user_id;
         }
 
+        public Trip()
+        {
+
+        }
+
         public int Trip_id { get; set; }
         public DateTime Trip_start { get; set; }
         public DateTime Trip_end { get; set; }
