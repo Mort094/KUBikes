@@ -64,7 +64,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
                 using(SqlCommand cmd = new SqlCommand(UPDATESTATUS_SQL, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Nr", id);
+                    cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@start", 1);
 
                     try
@@ -80,6 +80,7 @@ namespace KUBike_REST_Core_5.DBUTil
             }
             return OK;
         }
+
         public bool SlutRute(int id)
         {
             bool OK = true;
@@ -90,7 +91,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
                 using (SqlCommand cmd = new SqlCommand(UPDATESTATUS_SQL, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Nr", id);
+                    cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@start", 2);
 
                     try
