@@ -22,7 +22,7 @@ namespace KUBike_REST_Core_5.Controllers
 
         // GET api/<CyclesController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Cycle Get(int id)
         {
             mgr.HentEn(id);
         }
