@@ -94,6 +94,30 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
+        private const string AFLUT_TUR_SQL = "update trip set trip_end = @TEnd where trip_end = @TEnd";
+
+        public bool AfslutTrip (Trip trip)
+        {
+            var OK = true;
+            using (var conn =new SqlConnection(connString))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand(AFLUT_TUR_SQL, conn))
+                {
+                    cmd.Parameters.AddWithValue("@TEnd", DateTime.Now);
+                    try
+                    {
+                        var rows = cmd.ExecuteNonQuery();
+                        OK = rows == 1;
+                    }
+                    catch (Exception ex)
+                    {
+                        OK = false;
+                    }
+                }
+            }
+            return OK;
+        }
 
         private Trip ReadNextTrip(SqlDataReader reader)
         {
