@@ -36,7 +36,12 @@ namespace KUBike_REST_Core_5.Controllers
             mgr.OpretTrip(value);
         }
 
-
+        [HttpPut]
+        [Route("slutTrip/{id}")]
+        public bool AfslutTrip(int id)
+        {
+            return mgr.AfslutTrip(id);
+        }
 
         /*
         // PUT api/<TripController>/5

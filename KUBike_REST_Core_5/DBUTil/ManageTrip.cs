@@ -57,7 +57,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return trip;
         }
 
-        private const string OPRET_TUR_SQL = "insert into Trip (trip_start, trip_end, trip_map_json, FK_cycle_id, FK_user_id) values (@tstart, @tslut, @map, @cycleID, @userID)";
+        private const string OPRET_TUR_SQL = "insert into Trip (trip_start, trip_end, trip_map_json, FK_cycle_id, FK_user_id) values (@tstart, @tslut, @map, @cycleID, @userID, @asid)";
 
         public bool OpretTrip(Trip trip)
         {
@@ -78,6 +78,7 @@ namespace KUBike_REST_Core_5.DBUTil
                             cmd.Parameters.AddWithValue("@map", "xx");
                             cmd.Parameters.AddWithValue("@cycleID", cycle.Cycle_id);
                             cmd.Parameters.AddWithValue("@userID", user.User_id);
+                            cmd.Parameters.AddWithValue("@asid", 1);
                         try
                         {
                             var rows = cmd.ExecuteNonQuery();
@@ -94,9 +95,9 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
-        private const string AFLUT_TUR_SQL = "update trip set trip_end = @TEnd where trip_end = @TEnd";
+        private const string AFLUT_TUR_SQL = "update trip set trip_end = @TEnd where trip_end = @TEnd where trip_id = @id";
 
-        public bool AfslutTrip (Trip trip)
+        public bool AfslutTrip (int id)
         {
             var OK = true;
             using (var conn =new SqlConnection(connString))
@@ -104,6 +105,7 @@ namespace KUBike_REST_Core_5.DBUTil
                 conn.Open();
                 using (var cmd = new SqlCommand(AFLUT_TUR_SQL, conn))
                 {
+                    cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@TEnd", DateTime.Now);
                     try
                     {
