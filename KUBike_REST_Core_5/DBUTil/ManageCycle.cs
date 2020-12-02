@@ -53,6 +53,30 @@ namespace KUBike_REST_Core_5.DBUTil
             return cycle;
         }
 
+        private const string GET_ONE_FREE_SQL = "select * from cycles where cycle_id = @id and FK_cycle_status_id = 2";
+        public Cycle HentEnLedig(int id)
+        {
+            Cycle cycle = new Cycle();
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(GET_ONE_SQL, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        cycle = ReadNextCycle(reader);
+                    }
+
+                }
+
+            }
+            return cycle;
+        }
+
         private const string UPDATESTATUS_SQL = "update cycles set FK_cycle_status_id = @start where cycle_id = @id";
         
         public bool StartRute(int id)

@@ -27,12 +27,19 @@ namespace KUBike_REST_Core_5.Controllers
             return mgr.HentEn(id);
         }
 
+        [HttpGet]
+        [Route("ledig/{id}")]
+        public Cycle Get2(int id)
+        {
+            return mgr.HentEnLedig(id);
+        }
+
         //// POST api/<CyclesController>
         //[HttpPost]
         //public void Post([FromBody] string value)
         //{
         //}
-        
+
         //PUT api/<CyclesController>/5
         [HttpPut]
         [Route("start/{id}")]
