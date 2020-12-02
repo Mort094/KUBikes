@@ -20,6 +20,8 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ONE_SQL = "select * from Trip where trip_id = @Id";
 
+        private const string GET_ONE_SQL_WITH_USER = "select * from Trip where trip_id = @Id and FK_user_id = @UserID";
+
         public IList<Trip> HentAlle()
         {
             IList<Trip> trips = new List<Trip>();
@@ -53,6 +55,24 @@ namespace KUBike_REST_Core_5.DBUTil
                 }
             }
 
+            return trip;
+        }
+
+        public Trip HentEnMedBruger(int id, int UserID)
+        {
+            var trip = new Trip();
+
+            using (var conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand(GET_ONE_SQL_WITH_USER, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.Parameters.AddWithValue("@UserID", UserID);
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read()) trip = ReadNextTrip(reader);
+                }
+            }
             return trip;
         }
 

@@ -28,6 +28,12 @@ namespace KUBike_REST_Core_5.Controllers
         {
             return mgr.HentEn(id);
         }
+        [HttpGet]
+        [Route("getwithuser/{id}/")]
+        public Trip Get(int id, int userid)
+        {
+            return mgr.HentEnMedBruger(id, userid);
+        }
 
         // POST api/<TripController>
         [HttpPost]
