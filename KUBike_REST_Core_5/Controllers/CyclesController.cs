@@ -20,6 +20,12 @@ namespace KUBike_REST_Core_5.Controllers
             return mgr.HentAlle();
         }
 
+        [HttpGet]
+        [Route("alle-cykler/")]
+        public IEnumerable<Cycle> Get2()
+        {
+            return mgr.HentAlleAdmin();
+        }
         // GET api/<CyclesController>/5
         [HttpGet("{id}")]
         public Cycle Get(int id)

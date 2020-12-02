@@ -28,6 +28,24 @@ namespace KUBike_REST_Core_5.DBUTil
 
             return cycles;
         }
+        private const string GET_ALL_SQL_ADMIN = "select * from cycles";
+
+        public IList<Cycle> HentAlleAdmin()
+        {
+            IList<Cycle> cycles = new List<Cycle>();
+
+            using (var conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand(GET_ALL_SQL_ADMIN, conn))
+                {
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read()) cycles.Add(ReadNextCycle(reader));
+                }
+            }
+
+            return cycles;
+        }
 
         private const string GET_ONE_SQL = "select * from cycles where cycle_id = @id";
         public Cycle HentEn(int id)
