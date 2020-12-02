@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using KUBike_REST_Core_5.Controllers;
 
 namespace KUBike_REST.Controllers.Tests
 {

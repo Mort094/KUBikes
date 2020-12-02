@@ -6,7 +6,7 @@ namespace lib
 {
     public class Trip
     {
-        public Trip(int trip_id, DateTime trip_start, DateTime trip_end, string trip_map_json, int cycle_id, int user_id)
+        public Trip(int trip_id, string trip_start, string trip_end, string trip_map_json, int cycle_id, int user_id)
         {
             Trip_id = trip_id;
             Trip_start = trip_start;
@@ -22,8 +22,8 @@ namespace lib
         }
 
         public int Trip_id { get; set; }
-        public DateTime Trip_start { get; set; }
-        public DateTime Trip_end { get; set; }
+        public string Trip_start { get; set; }
+        public string Trip_end { get; set; }
         public string Trip_map_json { get; set; }
         public int Cycle_id { get; set; }
         public int User_id { get; set; }

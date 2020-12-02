@@ -18,8 +18,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ALL_SQL = "select * from Trip";
 
-        private const string GET_ONE_SQL = "select * from Trip " +
-                                           "where trip_id = @Id";
+        private const string GET_ONE_SQL = "select * from Trip where trip_id = @Id";
 
         public IList<Trip> HentAlle()
         {
@@ -73,8 +72,8 @@ namespace KUBike_REST_Core_5.DBUTil
                             Cycle cycle = new Cycle();
                             User user = new User();
 
-                            cmd.Parameters.AddWithValue("@tstart", DateTime.Now);
-                            cmd.Parameters.AddWithValue("@tslut", null);
+                            cmd.Parameters.AddWithValue("@tstart", DateTime.Now.ToString());
+                            cmd.Parameters.AddWithValue("@tslut", DateTime.Now.ToString());
                             cmd.Parameters.AddWithValue("@map", "xx");
                             cmd.Parameters.AddWithValue("@cycleID", cycle.Cycle_id);
                             cmd.Parameters.AddWithValue("@userID", user.User_id);
@@ -106,7 +105,7 @@ namespace KUBike_REST_Core_5.DBUTil
                 using (var cmd = new SqlCommand(AFLUT_TUR_SQL, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@TEnd", DateTime.Now);
+                    cmd.Parameters.AddWithValue("@TEnd", DateTime.Now.ToString());
                     try
                     {
                         var rows = cmd.ExecuteNonQuery();
@@ -126,8 +125,8 @@ namespace KUBike_REST_Core_5.DBUTil
             var trip = new Trip();
 
             trip.Trip_id = reader.GetInt32(0);
-            trip.Trip_start = reader.GetDateTime(1);
-            trip.Trip_end = reader.GetDateTime(2);
+            trip.Trip_start = reader.GetString(1);
+            trip.Trip_end = reader.GetString(2);
             trip.Trip_map_json = reader.GetString(3);
             trip.User_id = reader.GetInt32(4);
             trip.Cycle_id = reader.GetInt32(5);
