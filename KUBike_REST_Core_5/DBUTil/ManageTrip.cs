@@ -18,6 +18,8 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ALL_SQL = "select * from Trip";
 
+        private const string GET_ALL_BY_USER_SQL = "select * from Trip where FK_user_id = @id";
+
         private const string GET_ONE_SQL = "select * from Trip where trip_id = @Id";
 
         private const string GET_ONE_SQL_WITH_USER = "select * from Trip where trip_id = @Id and FK_user_id = @UserID";
@@ -36,6 +38,22 @@ namespace KUBike_REST_Core_5.DBUTil
                 }
             }
 
+            return trips;
+        }
+
+        public IList<Trip> HentAlleUserTrips(int id)
+        {
+            IList<Trip> trips = new List<Trip>();
+            using (var conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand(GET_ALL_BY_USER_SQL, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read()) trips.Add(ReadNextTrip(reader));
+                }
+            }
             return trips;
         }
 
