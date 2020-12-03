@@ -24,9 +24,9 @@ namespace KUBike_REST_Core_5.Controllers
 
         // GET api/<CyclesController>/5
         [HttpGet("{id}")]
-        public User Get(int id)
+        public User Get(string email)
         {
-            return mgr.HentEn(id);
+            return mgr.HentEn(email);
         }
 
         // POST api/<CyclesController>

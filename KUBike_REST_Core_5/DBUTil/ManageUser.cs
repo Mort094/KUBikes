@@ -17,8 +17,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ALL_SQL = "select * from Users";
 
-        private const string GET_ONE_SQL = "select * from Users " +
-                                           "where user_id = @Id";
+        private const string GET_ONE_SQL = "select * from Users where user_email = @Email";
 
       
 
@@ -39,7 +38,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return users;
         }
 
-        public User HentEn(int id)
+        public User HentEn(string email)
         {
             var user = new User();
 
@@ -49,7 +48,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
                 using (var cmd = new SqlCommand(GET_ONE_SQL, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Id", id);
+                    cmd.Parameters.AddWithValue("@Email", email);
                     var reader = cmd.ExecuteReader();
                     if (reader.Read()) user = ReadNextUser(reader);
                 }
