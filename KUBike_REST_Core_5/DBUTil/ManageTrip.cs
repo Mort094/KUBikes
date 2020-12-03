@@ -41,9 +41,9 @@ namespace KUBike_REST_Core_5.DBUTil
             return trips;
         }
 
-        public IList<Trip> HentAlleUserTrips(int id)
+        public IList<int> HentAlleUserTrips(int id)
         {
-            IList<Trip> trips = new List<Trip>();
+            IList<int> trips = new List<int>();
             using (var conn = new SqlConnection(connString))
             {
                 conn.Open();
@@ -51,7 +51,7 @@ namespace KUBike_REST_Core_5.DBUTil
                 {
                     cmd.Parameters.AddWithValue("@id", id);
                     var reader = cmd.ExecuteReader();
-                    while (reader.Read()) trips.Add(ReadNextTrip(reader));
+                    while (reader.Read()) trips.Add(ReadBike(reader));
                 }
             }
             return trips;
@@ -169,6 +169,12 @@ namespace KUBike_REST_Core_5.DBUTil
             trip.Cycle_id = reader.GetInt32(5);
 
             return trip;
+        }
+        private int ReadBike(SqlDataReader reader)
+        {
+            int id;
+            id = reader.GetInt32(0);
+            return id;
         }
     }
 }

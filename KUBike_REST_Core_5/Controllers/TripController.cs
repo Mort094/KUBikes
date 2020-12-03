@@ -24,7 +24,7 @@ namespace KUBike_REST_Core_5.Controllers
 
         [HttpGet]
         [Route("allusertrips/{id}")]
-        public IEnumerable<Trip> GetUser(int id)
+        public IEnumerable<int> GetUser(int id)
         {
             return mgr.HentAlleUserTrips(id);
         }
