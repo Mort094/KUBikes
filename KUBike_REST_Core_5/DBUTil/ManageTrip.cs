@@ -1,7 +1,7 @@
-﻿using System;
+﻿using lib;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using lib;
 
 
 namespace KUBike_REST_Core_5.DBUTil
@@ -105,25 +105,20 @@ namespace KUBike_REST_Core_5.DBUTil
                 conn.Open();
 
                 using (var cmd = new SqlCommand(OPRET_TUR_SQL, conn))
-                {
-                    { 
-                            Cycle cycle = new Cycle();
-                            User user = new User();
-
-                            cmd.Parameters.AddWithValue("@tstart", trip.Trip_start);
-                            cmd.Parameters.AddWithValue("@tslut", trip.Trip_end);
-                            cmd.Parameters.AddWithValue("@map", trip.Trip_map_json);
-                            cmd.Parameters.AddWithValue("@userID", trip.User_id);
-                            cmd.Parameters.AddWithValue("@cycleID", trip.Cycle_id);
-                        try
-                        {
-                            var rows = cmd.ExecuteNonQuery();
-                            OK = rows == 1;
-                        }
-                        catch (Exception ex)
-                        {
-                            OK = false;
-                        }
+                { 
+                    cmd.Parameters.AddWithValue("@tstart", trip.Trip_start);
+                    cmd.Parameters.AddWithValue("@tslut", trip.Trip_end);
+                    cmd.Parameters.AddWithValue("@map", trip.Trip_map_json);
+                    cmd.Parameters.AddWithValue("@cycleID", trip.Cycle_id);
+                    cmd.Parameters.AddWithValue("@userID", trip.User_id);
+                    try
+                    {
+                        var rows = cmd.ExecuteNonQuery();
+                        OK = rows == 1;
+                    }
+                    catch (Exception ex)
+                    {
+                        OK = false;
                     }
                 }
             }
