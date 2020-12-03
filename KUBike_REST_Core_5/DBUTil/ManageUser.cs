@@ -17,9 +17,10 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ALL_SQL = "select * from Users";
 
-        private const string GET_ONE_SQL = "select * from Users where user_email = @Email";
+        private const string GET_ONE_SQL = "select user_id from Users where user_email = @email";
 
-      
+
+
 
         public IList<User> HentAlle()
         {
