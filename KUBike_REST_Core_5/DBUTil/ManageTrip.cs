@@ -18,7 +18,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ALL_SQL = "select * from Trip";
 
-        private const string GET_ALL_BY_USER_SQL = "select * from Trip where FK_user_id = @id";
+        private const string GET_ALL_BIKES_BY_USER_SQL = "select FK_cycle_id from Trip where FK_user_id = @id";
 
         private const string GET_ONE_SQL = "select * from Trip where trip_id = @Id";
 
@@ -47,7 +47,7 @@ namespace KUBike_REST_Core_5.DBUTil
             using (var conn = new SqlConnection(connString))
             {
                 conn.Open();
-                using (var cmd = new SqlCommand(GET_ALL_BY_USER_SQL, conn))
+                using (var cmd = new SqlCommand(GET_ALL_BIKES_BY_USER_SQL, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
                     var reader = cmd.ExecuteReader();
@@ -94,7 +94,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return trip;
         }
 
-        private const string OPRET_TUR_SQL = "insert into Trip (trip_start, trip_end, trip_map_json, FK_cycle_id, FK_user_id) values (@tstart, @tslut, @map, @cycleID, @userID, @asid)";
+        private const string OPRET_TUR_SQL = "insert into Trip (trip_start, trip_end, trip_map_json, FK_cycle_id, FK_user_id) values (@tstart, @tslut, @map, @cycleID, @userID)";
 
         public bool OpretTrip(Trip trip)
         {
@@ -110,12 +110,11 @@ namespace KUBike_REST_Core_5.DBUTil
                             Cycle cycle = new Cycle();
                             User user = new User();
 
-                            cmd.Parameters.AddWithValue("@tstart", DateTime.Now.ToString());
-                            cmd.Parameters.AddWithValue("@tslut", DateTime.Now.ToString());
-                            cmd.Parameters.AddWithValue("@map", "xx");
-                            cmd.Parameters.AddWithValue("@cycleID", cycle.Cycle_id);
-                            cmd.Parameters.AddWithValue("@userID", user.User_id);
-                            cmd.Parameters.AddWithValue("@asid", 1);
+                            cmd.Parameters.AddWithValue("@tstart", trip.Trip_start);
+                            cmd.Parameters.AddWithValue("@tslut", trip.Trip_end);
+                            cmd.Parameters.AddWithValue("@map", trip.Trip_map_json);
+                            cmd.Parameters.AddWithValue("@cycleID", trip.Cycle_id);
+                            cmd.Parameters.AddWithValue("@userID", trip.User_id);
                         try
                         {
                             var rows = cmd.ExecuteNonQuery();
