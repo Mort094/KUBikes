@@ -39,9 +39,9 @@ namespace KUBike_REST_Core_5.DBUTil
             return users;
         }
 
-        public User HentEn(string email)
+        public int HentEn(string email)
         {
-            var user = new User();
+            int id = 0;
 
             using (var conn = new SqlConnection(connString))
             {
@@ -51,11 +51,10 @@ namespace KUBike_REST_Core_5.DBUTil
                 {
                     cmd.Parameters.AddWithValue("@Email", email);
                     var reader = cmd.ExecuteReader();
-                    if (reader.Read()) user = ReadNextUser(reader);
+                    if (reader.Read()) id = ReadID(reader);
                 }
             }
-
-            return user;
+            return id;
         }
 
         private const string LOGIN_SQL = "select user_id from Users where user_email = @email and user_password = @password";
@@ -128,6 +127,13 @@ namespace KUBike_REST_Core_5.DBUTil
 
 
             return user;
+        }
+
+        private int ReadID(SqlDataReader reader)
+        {
+            int id;
+            id = reader.GetInt32(0);
+            return id;
         }
     }
 }
