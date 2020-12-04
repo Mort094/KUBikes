@@ -22,7 +22,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ONE_SQL = "select * from Trip where trip_id = @Id";
 
-        private const string GET_ONE_SQL_WITH_USER = "select * from Trip where trip_id = @Id and user_id = @UserID";
+        private const string GET_ONE_SQL_WITH_USER = "select trip_id from Trip where cycle_id = @cycle_id and user_id = @user_id";
 
         public IList<Trip> HentAlle()
         {
@@ -76,22 +76,21 @@ namespace KUBike_REST_Core_5.DBUTil
             return trip;
         }
 
-        public Trip HentEnMedBruger(int id, int UserID)
+        public int HentEnMedBruger(int userid, int CycleID)
         {
-            var trip = new Trip();
-
+            int id = 0;
             using (var conn = new SqlConnection(connString))
             {
                 conn.Open();
                 using (var cmd = new SqlCommand(GET_ONE_SQL_WITH_USER, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Id", id);
-                    cmd.Parameters.AddWithValue("@UserID", UserID);
+                    cmd.Parameters.AddWithValue("@user_id", userid);
+                    cmd.Parameters.AddWithValue("@cycle_id", CycleID);
                     var reader = cmd.ExecuteReader();
-                    if (reader.Read()) trip = ReadNextTrip(reader);
+                    if (reader.Read()) id = ReadBike(reader);
                 }
             }
-            return trip;
+            return id;
         }
 
         private const string OPRET_TUR_SQL = "insert into Trip (trip_start, trip_end, trip_map_json, cycle_id , user_id) values (@tstart, @tslut, @map, @cycleID, @userID)";
