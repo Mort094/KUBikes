@@ -18,7 +18,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ALL_SQL = "select * from Trip";
 
-        private const string GET_ALL_BIKES_BY_USER_SQL = "select cycle_id from Trip where user_id = @id";
+        private const string GET_ALL_BIKES_BY_USER_SQL = "select cycle_id from Trip where user_id = @id and trip_end = 'Awaiting end'";
 
         private const string GET_ONE_SQL = "select * from Trip where trip_id = @Id";
 
