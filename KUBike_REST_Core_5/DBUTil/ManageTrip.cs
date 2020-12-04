@@ -94,7 +94,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return trip;
         }
 
-        private const string OPRET_TUR_SQL = "insert into Trip (trip_start, trip_end, trip_map_json, FK_cycle_id , FK_user_id) values (@tstart, @tslut, @map, @cycleID, @userID)";
+        private const string OPRET_TUR_SQL = "insert into Trip (trip_start, trip_end, trip_map_json, cycle_id , user_id) values (@tstart, @tslut, @map, @cycleID, @userID)";
 
         public bool OpretTrip(Trip trip)
         {
@@ -116,7 +116,7 @@ namespace KUBike_REST_Core_5.DBUTil
                         var rows = cmd.ExecuteNonQuery();
                         OK = rows == 1;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         OK = false;
                     }
@@ -143,7 +143,7 @@ namespace KUBike_REST_Core_5.DBUTil
                         var rows = cmd.ExecuteNonQuery();
                         OK = rows == 1;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         OK = false;
                     }

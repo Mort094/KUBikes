@@ -114,7 +114,7 @@ namespace KUBike_REST_Core_5.DBUTil
                         int rows = cmd.ExecuteNonQuery();
                         OK = rows == 1;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         OK = false;
                     }
@@ -141,7 +141,7 @@ namespace KUBike_REST_Core_5.DBUTil
                         int rows = cmd.ExecuteNonQuery();
                         OK = rows == 1;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         OK = false;
                     }
