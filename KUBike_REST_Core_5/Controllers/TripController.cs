@@ -51,9 +51,9 @@ namespace KUBike_REST_Core_5.Controllers
 
         [HttpPut]
         [Route("slutTrip/{id}")]
-        public bool AfslutTrip(int id)
+        public bool AfslutTrip(int id, string time)
         {
-            return mgr.AfslutTrip(id);
+            return mgr.AfslutTrip(id, time);
         }
 
         /*

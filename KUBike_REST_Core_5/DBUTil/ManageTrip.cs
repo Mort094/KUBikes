@@ -18,11 +18,11 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ALL_SQL = "select * from Trip";
 
-        private const string GET_ALL_BIKES_BY_USER_SQL = "select FK_cycle_id from Trip where FK_user_id = @id";
+        private const string GET_ALL_BIKES_BY_USER_SQL = "select cycle_id from Trip where user_id = @id";
 
         private const string GET_ONE_SQL = "select * from Trip where trip_id = @Id";
 
-        private const string GET_ONE_SQL_WITH_USER = "select * from Trip where trip_id = @Id and FK_user_id = @UserID";
+        private const string GET_ONE_SQL_WITH_USER = "select * from Trip where trip_id = @Id and user_id = @UserID";
 
         public IList<Trip> HentAlle()
         {
@@ -126,9 +126,9 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
-        private const string AFLUT_TUR_SQL = "update trip set trip_end = @TEnd where trip_end = @TEnd where trip_id = @id";
+        private const string AFLUT_TUR_SQL = "update Trip set trip_end = @TEnd where trip_id = @id";
 
-        public bool AfslutTrip (int id)
+        public bool AfslutTrip (int id, string time)
         {
             var OK = true;
             using (var conn =new SqlConnection(connString))
@@ -137,7 +137,7 @@ namespace KUBike_REST_Core_5.DBUTil
                 using (var cmd = new SqlCommand(AFLUT_TUR_SQL, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@TEnd", DateTime.Now.ToString());
+                    cmd.Parameters.AddWithValue("@TEnd", time);
                     try
                     {
                         var rows = cmd.ExecuteNonQuery();
