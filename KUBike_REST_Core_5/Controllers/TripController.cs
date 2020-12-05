@@ -36,7 +36,7 @@ namespace KUBike_REST_Core_5.Controllers
             return mgr.HentEn(id);
         }
         [HttpGet]
-        [Route("getwithuser/{userid}/")]
+        [Route("getwithuser/{userid}")]
         public int Get(int userid, int cycleid)
         {
             return mgr.HentEnMedBruger(userid, cycleid);
