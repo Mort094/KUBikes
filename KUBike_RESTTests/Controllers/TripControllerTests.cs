@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using KUBike_REST_Core_5.Controllers;
+using lib;
 
 namespace KUBike_REST.Controllers.Tests
 {
     [TestClass()]
-    public class CyclesControllerTests
+    public class TripControllerTests
     {
-        CyclesController cmd = new CyclesController();
+        TripController cmd = new TripController();
 
         [TestMethod()]
         //For at testet GETALL funktionen i unittest. Vi tester dette igennem når vi tjekker for mange items der er i listen. Derfor bruger vi Assert.AreEqual, til at se om de har samme antal af items i listen. 
@@ -20,10 +21,12 @@ namespace KUBike_REST.Controllers.Tests
             Assert.AreEqual(2, cmd.Get().Count());
         }
         [TestMethod()]
-        public void GetAdminTest()
+        public void GetUser()
         {
-            Assert.AreEqual(2, cmd.Get2().Count());
+            Assert.AreEqual(1, cmd.GetUser(1));
+            Assert.IsNotNull(cmd.GetUser(1));
         }
+      
         [TestMethod()]
         public void GetIdTest()
         {
@@ -31,22 +34,24 @@ namespace KUBike_REST.Controllers.Tests
             Assert.IsNotNull(cmd.Get(2));
         }
         [TestMethod()]
-        public void GetLedigeIdTest()
+        public void HentEnBruger()
         {
-            Assert.AreEqual(1, cmd.Get2(1).Cycle_id);
-            Assert.IsNotNull(cmd.Get2(1));
+            Assert.AreEqual(12, cmd.Get(55,1).Cycle_id);
+            Assert.IsNotNull(cmd.Get(55,1));
         }
 
         [TestMethod()]
-        public void StartRuteTest()
+        public void PostTest()
         {
-            Assert.AreEqual(true, cmd.Start(1));
+            Trip i = new Trip(100, "string", "string", "string", 1, 1);
+            cmd.Post(i);
+            Assert.AreEqual(13, cmd.Get(100));
         }
         [TestMethod()]
-        public void SlutRuteTest()
+        public void SlutTripTest()
         {
-            cmd.Start(1);
-            Assert.AreEqual(true, cmd.Slut(1));
+            Assert.AreEqual(true, cmd.AfslutTrip(1));
         }
     }
+
 }

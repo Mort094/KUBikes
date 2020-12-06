@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "lib", "lib\lib.csproj", "{7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KUBike_REST_Core_5", "KUBike_REST_Core_5\KUBike_REST_Core_5.csproj", "{392E742C-3216-4E3C-A470-90FB283A91B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeleniumTest", "SeleniumTest\SeleniumTest.csproj", "{3F141C9C-E4EA-4FBA-AF14-AAC60B8A869F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeleniumTest", "SeleniumTest\SeleniumTest.csproj", "{3F141C9C-E4EA-4FBA-AF14-AAC60B8A869F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
