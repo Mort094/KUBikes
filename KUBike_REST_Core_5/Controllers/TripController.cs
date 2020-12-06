@@ -29,6 +29,13 @@ namespace KUBike_REST_Core_5.Controllers
             return mgr.HentAlleUserTrips(id);
         }
 
+        [HttpGet]
+        [Route("allecyklerfraruter")]
+        public IEnumerable<int> GetCycles()
+        {
+            return mgr.HentAlleAktiveCyklerFraRuter();
+        }
+
         // GET api/<TripController>/5
         [HttpGet("{id}")]
         public Trip Get(int id)
@@ -36,10 +43,10 @@ namespace KUBike_REST_Core_5.Controllers
             return mgr.HentEn(id);
         }
         [HttpGet]
-        [Route("getwithuser/{id}/")]
-        public Trip Get(int id, int userid)
+        [Route("getwithuser/{userid}/{cycleid}")]
+        public int Get(int userid, int cycleid)
         {
-            return mgr.HentEnMedBruger(id, userid);
+            return mgr.HentEnMedBruger(userid, cycleid);
         }
 
         // POST api/<TripController>
@@ -51,9 +58,9 @@ namespace KUBike_REST_Core_5.Controllers
 
         [HttpPut]
         [Route("slutTrip/{id}")]
-        public bool AfslutTrip(int id)
+        public bool AfslutTrip(int id, string time)
         {
-            return mgr.AfslutTrip(id);
+            return mgr.AfslutTrip(id, time);
         }
 
         /*

@@ -103,7 +103,7 @@ namespace KUBike_REST_Core_5.DBUTil
                         var rows = cmd.ExecuteNonQuery();
                         OK = rows == 1;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         OK = false;
                     }

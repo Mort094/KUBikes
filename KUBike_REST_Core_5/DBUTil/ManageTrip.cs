@@ -1,7 +1,7 @@
-﻿using System;
+﻿using lib;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using lib;
 
 
 namespace KUBike_REST_Core_5.DBUTil
@@ -18,11 +18,13 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ALL_SQL = "select * from Trip";
 
-        private const string GET_ALL_BIKES_BY_USER_SQL = "select FK_cycle_id from Trip where FK_user_id = @id";
+        private const string GET_ALL_BIKES_BY_USER_SQL = "select cycle_id from Trip where user_id = @id and trip_end = 'Awaiting end'";
 
         private const string GET_ONE_SQL = "select * from Trip where trip_id = @Id";
 
-        private const string GET_ONE_SQL_WITH_USER = "select * from Trip where trip_id = @Id and FK_user_id = @UserID";
+        private const string GET_ONE_SQL_WITH_USER = "select trip_id from Trip where cycle_id = @cycle_id and user_id = @user_id and trip_end = @Tend";
+
+        private const string GET_ALL_BIKES_FROM_ACTIVE_ROUTES = "select cycle_id from trip where trip_end = 'Awaiting End'";
 
         public IList<Trip> HentAlle()
         {
@@ -57,6 +59,21 @@ namespace KUBike_REST_Core_5.DBUTil
             return trips;
         }
 
+        public IList<int> HentAlleAktiveCyklerFraRuter()
+        {
+            IList<int> cycleTrips = new List<int>();
+            using (var conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand(GET_ALL_BIKES_FROM_ACTIVE_ROUTES, conn)) 
+                {
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read()) cycleTrips.Add(ReadBike(reader));
+                }
+            }
+            return cycleTrips;
+        }
+
         public Trip HentEn(int id)
         {
             var trip = new Trip();
@@ -76,25 +93,25 @@ namespace KUBike_REST_Core_5.DBUTil
             return trip;
         }
 
-        public Trip HentEnMedBruger(int id, int UserID)
+        public int HentEnMedBruger(int userid, int CycleID)
         {
-            var trip = new Trip();
-
+            int id = 0;
             using (var conn = new SqlConnection(connString))
             {
                 conn.Open();
                 using (var cmd = new SqlCommand(GET_ONE_SQL_WITH_USER, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Id", id);
-                    cmd.Parameters.AddWithValue("@UserID", UserID);
+                    cmd.Parameters.AddWithValue("@user_id", userid);
+                    cmd.Parameters.AddWithValue("@cycle_id", CycleID);
+                    cmd.Parameters.AddWithValue("@Tend", "Awaiting end");
                     var reader = cmd.ExecuteReader();
-                    if (reader.Read()) trip = ReadNextTrip(reader);
+                    if (reader.Read()) id = ReadBike(reader);
                 }
             }
-            return trip;
+            return id;
         }
 
-        private const string OPRET_TUR_SQL = "insert into Trip (trip_start, trip_end, trip_map_json, FK_cycle_id, FK_user_id) values (@tstart, @tslut, @map, @cycleID, @userID)";
+        private const string OPRET_TUR_SQL = "insert into Trip (trip_start, trip_end, trip_map_json, cycle_id , user_id) values (@tstart, @tslut, @map, @cycleID, @userID)";
 
         public bool OpretTrip(Trip trip)
         {
@@ -105,25 +122,20 @@ namespace KUBike_REST_Core_5.DBUTil
                 conn.Open();
 
                 using (var cmd = new SqlCommand(OPRET_TUR_SQL, conn))
-                {
-                    { 
-                            Cycle cycle = new Cycle();
-                            User user = new User();
-
-                            cmd.Parameters.AddWithValue("@tstart", trip.Trip_start);
-                            cmd.Parameters.AddWithValue("@tslut", trip.Trip_end);
-                            cmd.Parameters.AddWithValue("@map", trip.Trip_map_json);
-                            cmd.Parameters.AddWithValue("@cycleID", trip.Cycle_id);
-                            cmd.Parameters.AddWithValue("@userID", trip.User_id);
-                        try
-                        {
-                            var rows = cmd.ExecuteNonQuery();
-                            OK = rows == 1;
-                        }
-                        catch (Exception ex)
-                        {
-                            OK = false;
-                        }
+                { 
+                    cmd.Parameters.AddWithValue("@tstart", trip.Trip_start);
+                    cmd.Parameters.AddWithValue("@tslut", trip.Trip_end);
+                    cmd.Parameters.AddWithValue("@map", trip.Trip_map_json);
+                    cmd.Parameters.AddWithValue("@cycleID", trip.Cycle_id);
+                    cmd.Parameters.AddWithValue("@userID", trip.User_id);
+                    try
+                    {
+                        var rows = cmd.ExecuteNonQuery();
+                        OK = rows == 1;
+                    }
+                    catch (Exception)
+                    {
+                        OK = false;
                     }
                 }
             }
@@ -131,9 +143,9 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
-        private const string AFLUT_TUR_SQL = "update trip set trip_end = @TEnd where trip_end = @TEnd where trip_id = @id";
+        private const string AFLUT_TUR_SQL = "update Trip set trip_end = @TEnd where trip_id = @id";
 
-        public bool AfslutTrip (int id)
+        public bool AfslutTrip (int id, string time)
         {
             var OK = true;
             using (var conn =new SqlConnection(connString))
@@ -142,13 +154,13 @@ namespace KUBike_REST_Core_5.DBUTil
                 using (var cmd = new SqlCommand(AFLUT_TUR_SQL, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
-                    cmd.Parameters.AddWithValue("@TEnd", DateTime.Now.ToString());
+                    cmd.Parameters.AddWithValue("@TEnd", time);
                     try
                     {
                         var rows = cmd.ExecuteNonQuery();
                         OK = rows == 1;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         OK = false;
                     }
