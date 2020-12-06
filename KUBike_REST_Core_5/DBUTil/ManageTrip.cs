@@ -24,6 +24,8 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ONE_SQL_WITH_USER = "select trip_id from Trip where cycle_id = @cycle_id and user_id = @user_id and trip_end = @Tend";
 
+        private const string GET_ALL_BIKES_FROM_ACTIVE_ROUTES = "select cycle_id from trip where trip_end = 'Awaiting End'";
+
         public IList<Trip> HentAlle()
         {
             IList<Trip> trips = new List<Trip>();
@@ -55,6 +57,21 @@ namespace KUBike_REST_Core_5.DBUTil
                 }
             }
             return trips;
+        }
+
+        public IList<int> HentAlleAktiveCyklerFraRuter()
+        {
+            IList<int> cycleTrips = new List<int>();
+            using (var conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                using (var cmd = new SqlCommand(GET_ALL_BIKES_FROM_ACTIVE_ROUTES, conn)) 
+                {
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read()) cycleTrips.Add(ReadBike(reader));
+                }
+            }
+            return cycleTrips;
         }
 
         public Trip HentEn(int id)

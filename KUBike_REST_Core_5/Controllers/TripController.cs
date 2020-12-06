@@ -29,6 +29,13 @@ namespace KUBike_REST_Core_5.Controllers
             return mgr.HentAlleUserTrips(id);
         }
 
+        [HttpGet]
+        [Route("allecyklerfraruter")]
+        public IEnumerable<int> GetCycles()
+        {
+            return mgr.HentAlleAktiveCyklerFraRuter();
+        }
+
         // GET api/<TripController>/5
         [HttpGet("{id}")]
         public Trip Get(int id)
