@@ -22,7 +22,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ONE_SQL = "select * from Trip where trip_id = @Id";
 
-        private const string GET_ONE_SQL_WITH_USER = "select trip_id from Trip where cycle_id = @cycle_id and user_id = @user_id";
+        private const string GET_ONE_SQL_WITH_USER = "select trip_id from Trip where cycle_id = @cycle_id and user_id = @user_id and trip_end = @Tend";
 
         public IList<Trip> HentAlle()
         {
@@ -86,6 +86,7 @@ namespace KUBike_REST_Core_5.DBUTil
                 {
                     cmd.Parameters.AddWithValue("@user_id", userid);
                     cmd.Parameters.AddWithValue("@cycle_id", CycleID);
+                    cmd.Parameters.AddWithValue("@Tend", "Awaiting end");
                     var reader = cmd.ExecuteReader();
                     if (reader.Read()) id = ReadBike(reader);
                 }
