@@ -9,7 +9,7 @@ namespace SeleniumTest
     [TestClass]
     public class UnitTest1
     {
-        private static readonly string DriverDirectory = "C:\\chromedriver";
+        private static readonly string DriverDirectory = "C:\\seleniumDriver";
         private static IWebDriver _driver;
 
         [ClassInitialize]
@@ -41,34 +41,78 @@ namespace SeleniumTest
         [TestMethod]
         public void Login()
         {
-            IWebElement email = _driver.FindElement(By.Id("email"));
-            IWebElement password = _driver.FindElement(By.Name("password"));
-            email.SendKeys("string");
-            password.SendKeys("string");
+            IWebElement email = _driver.FindElement(By.Id("login-email"));
+            IWebElement password = _driver.FindElement(By.Id("login-password"));
+            email.SendKeys("Testmich@ku.dk");
+            password.SendKeys("Test");
 
-            IWebElement buttonElement = _driver.FindElement(By.Id("login"));
+            IWebElement buttonElement = _driver.FindElement(By.Id("BTNlogin"));
             Assert.AreEqual("Login", buttonElement.Text);
+            buttonElement.Click();
 
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10)); // Programmet venter 10 sek på et svar, før end den failer
         }
-
-       [TestMethod]
-       public void CreateUser() 
+        [TestMethod]
+        public void Map()
         {
-            IWebElement opretUser = _driver.FindElement(By.Name("Opret Bruger"));
-            IWebElement email = _driver.FindElement(By.Id("email"));
-            email.SendKeys("string");
-            IWebElement password = _driver.FindElement(By.Id("password"));
-            password.SendKeys("string");
-            IWebElement firstname = _driver.FindElement(By.Id("name"));
-            firstname.SendKeys("string");
-            IWebElement lastname = _driver.FindElement(By.Id("lastname"));
-            lastname.SendKeys("string");
-            IWebElement phone = _driver.FindElement(By.Id("phone"));
-            phone.SendKeys("5555555");
-            IWebElement addUser = _driver.FindElement(By.Name("Opret Bruger"));
+            IWebElement button = _driver.FindElement(By.Id("NAVOverview"));
+            button.Click();
+
+            IWebElement page = _driver.FindElement(By.Id("overviewPage"));
+
+            //IWebElement dropdowntest = _driver.FindElement(By.Id("cykelUdenQR"));
+            //SelectElement dropdown = new SelectElement(dropdowntest);
+            //dropdowntest.Click();
+            //dropdown.SelectByValue("1");
 
         }
+        [TestMethod]
+        public void Scan()
+        {
+            IWebElement button = _driver.FindElement(By.Id("NAVQR"));
+            button.Click();
+
+            IWebElement page = _driver.FindElement(By.Id("scanPage"));
+
+            IWebElement button2 = _driver.FindElement(By.Id("BTNGetbike"));
+            button2.Click();
+
+            
+        }
+        [TestMethod]
+        public void Profile()
+        {
+            IWebElement button = _driver.FindElement(By.Id("NAVProfile"));
+            button.Click();
+
+            IWebElement page = _driver.FindElement(By.Id("profilePage"));
+            
+        }
+        [TestMethod]
+        public void Settings()
+        {
+            IWebElement button = _driver.FindElement(By.Id("NAVSettings"));
+            button.Click();
+
+            IWebElement page = _driver.FindElement(By.Id("settingsPage"));
+        }
+
+        //[TestMethod]
+        //public void CreateUser() 
+        // {
+        //     IWebElement opretUser = _driver.FindElement(By.Name("Opret Bruger"));
+        //     IWebElement email = _driver.FindElement(By.Id("email"));
+        //     email.SendKeys("string");
+        //     IWebElement password = _driver.FindElement(By.Id("password"));
+        //     password.SendKeys("string");
+        //     IWebElement firstname = _driver.FindElement(By.Id("name"));
+        //     firstname.SendKeys("string");
+        //     IWebElement lastname = _driver.FindElement(By.Id("lastname"));
+        //     lastname.SendKeys("string");
+        //     IWebElement phone = _driver.FindElement(By.Id("phone"));
+        //     phone.SendKeys("5555555");
+        //     IWebElement addUser = _driver.FindElement(By.Name("Opret Bruger"));
+        // }
     }
 }
 
