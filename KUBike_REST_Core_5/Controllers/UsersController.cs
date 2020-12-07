@@ -41,13 +41,14 @@ namespace KUBike_REST_Core_5.Controllers
         {
             return mgr.Login(email, password);
         }
+        // api/users//updateUser/<id>
         [HttpPut]
-        [Route("{id}")]
+        [Route("updateUser/{id}")]
         public void Put(int id, [FromBody] User value)
         {
             mgr.UpdateUser(id, value);
         }
-        // GET: api/users/<id>
+        // GET: api/users/user/<id>
         [HttpGet]
         [Route("user/{id}")]
         public User Get(int id)
