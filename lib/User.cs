@@ -64,7 +64,7 @@ namespace lib
         }
         public int User_mobile { get => _user_mobile; set
             {
-                if (value == null) throw new ArgumentNullException("Why are you making me  mad");
+                if (value == 0) throw new ArgumentNullException("Why are you making me  mad");
                 if (value <= 10) throw new ArgumentException("STUPID");
 
                 _user_mobile = value;

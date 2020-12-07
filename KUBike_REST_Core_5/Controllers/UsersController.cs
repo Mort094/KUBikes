@@ -35,11 +35,32 @@ namespace KUBike_REST_Core_5.Controllers
         {
             mgr.OpretUser(value);
         }
-
+        
         [HttpGet("{email}/{password}")]
         public bool Login(string email, string password)
         {
             return mgr.Login(email, password);
+        }
+        // api/users//updateUser/<id>
+        [HttpPut]
+        [Route("updateUser/{id}")]
+        public void Put(int id, [FromBody] User value)
+        {
+            mgr.UpdateUser(id, value);
+        }
+        // GET: api/users/user/<id>
+        [HttpGet]
+        [Route("user/{id}")]
+        public User Get(int id)
+        {
+            return mgr.HentEnMedId(id);
+        }
+        //api/users/<id>
+        [HttpDelete]
+        [Route("delete/{id}")]
+        public void Delete(int id)
+        {
+            mgr.DeleteUser(id);
         }
     }
 }
