@@ -73,7 +73,7 @@ namespace KUBike_REST_Core_5.DBUTil
                     SqlDataReader c = cmd.ExecuteReader();
 
                     return c.HasRows;
-                    
+
                 }
             }
 
@@ -108,6 +108,35 @@ namespace KUBike_REST_Core_5.DBUTil
                         OK = false;
                     }
                 }
+            }
+
+            return OK;
+        }
+        private const string Update_SQL = "UPDATE users SET user_firstname = @uName, user_lastname = @uLastname, user_email = @uEmail, user_mobile = @uMobile WHERE user_id = @uId";
+        public bool UpdateUser(int id, User user)
+        {
+            bool OK = true;
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(Update_SQL))
+                {
+                    cmd.Parameters.AddWithValue("@uName", user.User_firstname);
+                    cmd.Parameters.AddWithValue("@uLastname", user.User_lastname);
+                    cmd.Parameters.AddWithValue("@uEmail", user.User_email);
+                    cmd.Parameters.AddWithValue("@uMobile", user.User_mobile);
+
+                    try
+                    {
+                        int rows = cmd.ExecuteNonQuery();
+                        OK = rows == 1;
+                    }
+                    catch
+                    {
+                        OK = false;
+                    }
+                }
+
             }
 
             return OK;
