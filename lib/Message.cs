@@ -11,7 +11,7 @@ namespace lib
         private int _cycle_id;
         private string _topic;
         private string _body;
-        private string _status;
+        private int _status;
 
         public int Messages_id
         {
@@ -43,7 +43,7 @@ namespace lib
             set { _body = value; }
         }
 
-        public string status
+        public int status
         {
             get { return _status; }
             set { _status = value; }
@@ -52,14 +52,14 @@ namespace lib
         {
 
         }
-        public Message (int message_id, int user_id, int cycle_id, string topic, string body, string statuS)
+        public Message (int message_id, int user_id, int cycle_id, string topic, string body, int statusVariable)
         {
             Messages_id = message_id;
             User_id = user_id;
             Cycle_id = cycle_id;
             Emne = topic;
             Besked = body;
-            status = statuS;
+            status = statusVariable;
         }
     }
 }

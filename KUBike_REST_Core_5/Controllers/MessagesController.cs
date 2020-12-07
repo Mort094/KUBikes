@@ -26,7 +26,7 @@ namespace KUBike_REST_Core_5.Controllers
 
         // GET: api/<MessagesController>
         [HttpGet]
-        [Route("cykel/ {id}")]
+        [Route("cykel/{id}")]
         public IList<Message> GetWithBike(int id)
         {
             return mgr.HentAlleMedCykel(id);
@@ -46,16 +46,35 @@ namespace KUBike_REST_Core_5.Controllers
             mgr.OpretMessage(value);
         }
 
-        // PUT api/<MessagesController>/5
-       /* [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        [Route("statusone/{id}")]
+
+        public bool one(int id)
         {
+            return mgr.SetStatusOne(id);
         }
 
-        // DELETE api/<MessagesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpPut]
+        [Route("status2/{id}")]
+
+        public bool two(int id)
         {
-        } */
+            return mgr.SetStatustwo(id);
+        }
+
+        [HttpPut]
+        [Route("status3/{id}")]
+
+        public bool three(int id)
+        {
+            return mgr.SetStatusthree(id);
+        }
+
+        /*
+         // DELETE api/<MessagesController>/5
+         [HttpDelete("{id}")]
+         public void Delete(int id)
+         {
+         } */
     }
 }

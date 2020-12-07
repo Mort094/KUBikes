@@ -17,10 +17,11 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string SQL_GET_ALL_MESSAGE2 = "select * from messages where cycle_id = @Cid";
 
-        private const string SQL_GET_ONE_MESSAGE = "select * from messages where messages_id = @Mid";
+        private const string SQL_GET_ONE_MESSAGE = "select * from messages where messages_Id = @Mid";
 
         private const string SQL_OPRET_MESSAGE = "insert into messages (user_id, cycle_id, Emne, Besked, status) values (@Uid, @Cid, @Emne, @Body, @Status)";
 
+        private const string SQL_STATUS_CODE = "update messages set status = @status where messages_Id = @id";
 
         public IList<Message> HentAlle()
         {
@@ -110,6 +111,87 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
+        public bool SetStatusOne(int id)
+        {
+            bool OK = true;
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(SQL_STATUS_CODE, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@status", 1);
+                    try
+                    {
+                        int rows = cmd.ExecuteNonQuery();
+                        OK = rows == 1;
+                    }
+                    catch (Exception)
+                    {
+                        OK = false;
+                    }
+                }
+                return OK;
+            }
+        }
+
+
+
+        public bool SetStatustwo(int id)
+        {
+            bool OK = true;
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(SQL_STATUS_CODE, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@status", 2);
+                    try
+                    {
+                        int rows = cmd.ExecuteNonQuery();
+                        OK = rows == 1;
+                    }
+                    catch (Exception)
+                    {
+                        OK = false;
+                    }
+                }
+                return OK;
+            }
+        }
+
+        public bool SetStatusthree(int id)
+        {
+            bool OK = true;
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(SQL_STATUS_CODE, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@status", 3);
+                    try
+                    {
+                        int rows = cmd.ExecuteNonQuery();
+                        OK = rows == 1;
+                    }
+                    catch (Exception)
+                    {
+                        OK = false;
+                    }
+                }
+                return OK;
+            }
+        }
+
+
         private Message ReadNextMessage(SqlDataReader reader)
         {
             var message = new Message();
@@ -119,7 +201,7 @@ namespace KUBike_REST_Core_5.DBUTil
             message.Cycle_id = reader.GetInt32(2);
             message.Emne = reader.GetString(3);
             message.Besked = reader.GetString(4);
-            message.status = reader.GetString(5);
+            message.status = reader.GetInt32(5);
 
             return message;
         }
