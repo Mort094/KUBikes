@@ -112,6 +112,44 @@ namespace KUBike_REST_Core_5.DBUTil
 
             return OK;
         }
+        private const string GETONETEST_SQL = "SELECT * FROM Users WHERE user_id = @uId";
+        public User HentEnMedId(int id)
+        {
+            User user = new User();
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(GETONETEST_SQL, conn))
+                {
+                    cmd.Parameters.AddWithValue("@uId", id);
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        user = ReadNextUser(reader);
+                    }
+                }
+            }
+            return user;
+        }
+
+        private const string DELETE_SQL = "DELETE FROM Users WHERE user_id = @uId";
+        public User DeleteUser(int id)
+        {
+            User user = HentEnMedId(id);
+            if (user.User_id != -1)
+            {
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(DELETE_SQL, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@uId", id);
+                        int rows = cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+            return user;
+        }
 
         private User ReadNextUser(SqlDataReader reader)
         {

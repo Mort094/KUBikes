@@ -41,5 +41,18 @@ namespace KUBike_REST_Core_5.Controllers
         {
             return mgr.Login(email, password);
         }
+        // GET: api/users/<id>
+        [HttpGet]
+        [Route("user/{id}")]
+        public User Get(int id)
+        {
+            return mgr.HentEnMedId(id);
+        }
+        [HttpDelete]
+        [Route("{id}")]
+        public void Delete(int id)
+        {
+            mgr.DeleteUser(id);
+        }
     }
 }
