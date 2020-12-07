@@ -191,6 +191,32 @@ namespace KUBike_REST_Core_5.DBUTil
             }
         }
 
+        public bool SetStatusStolen(int id)
+        {
+            bool OK = true;
+
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+
+                using (SqlCommand cmd = new SqlCommand(SQL_STATUS_CODE, conn))
+                {
+                    cmd.Parameters.AddWithValue("@id", id);
+                    cmd.Parameters.AddWithValue("@status", 4);
+                    try
+                    {
+                        int rows = cmd.ExecuteNonQuery();
+                        OK = rows == 1;
+                    }
+                    catch (Exception)
+                    {
+                        OK = false;
+                    }
+                }
+                return OK;
+            }
+        }
+
 
         private Message ReadNextMessage(SqlDataReader reader)
         {

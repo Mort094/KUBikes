@@ -70,6 +70,14 @@ namespace KUBike_REST_Core_5.Controllers
             return mgr.SetStatusthree(id);
         }
 
+        [HttpPut]
+        [Route("stolen/{id}")]
+
+        public bool stolen(int id)
+        {
+            return mgr.SetStatusStolen(id);
+        }
+
         /*
          // DELETE api/<MessagesController>/5
          [HttpDelete("{id}")]
