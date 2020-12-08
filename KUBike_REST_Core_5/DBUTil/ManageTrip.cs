@@ -1,6 +1,7 @@
 ﻿using lib;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 
@@ -116,6 +117,7 @@ namespace KUBike_REST_Core_5.DBUTil
         public bool OpretTrip(Trip trip)
         {
             var OK = true;
+            var co = new Coordinate();
 
             using (var conn = new SqlConnection(connString))
             {
@@ -125,7 +127,7 @@ namespace KUBike_REST_Core_5.DBUTil
                 { 
                     cmd.Parameters.AddWithValue("@tstart", trip.Trip_start);
                     cmd.Parameters.AddWithValue("@tslut", trip.Trip_end);
-                    cmd.Parameters.AddWithValue("@map", trip.Trip_map_json);
+                    cmd.Parameters.AddWithValue("@map", co.ToString());
                     cmd.Parameters.AddWithValue("@cycleID", trip.Cycle_id);
                     cmd.Parameters.AddWithValue("@userID", trip.User_id);
                     try

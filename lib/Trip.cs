@@ -6,6 +6,7 @@ namespace lib
 {
     public class Trip
     {
+        
         public Trip(int trip_id, string trip_start, string trip_end, string trip_map_json, int cycle_id, int user_id)
         {
             Trip_id = trip_id;
@@ -18,7 +19,7 @@ namespace lib
 
         public Trip()
         {
-
+           
         }
 
         public int Trip_id { get; set; }
