@@ -13,37 +13,37 @@ namespace lib
         private string _body;
         private int _status;
 
-        public int Messages_id
+        public int messages_Id
         {
             get { return _message_id; }
             set { _message_id = value; }
         }
 
-        public int User_id
+        public int messages_user_id
         {
             get { return _user_id; }
             set { _user_id = value; }
         }
 
-        public int Cycle_id
+        public int messages_cycle_id
         {
             get { return _cycle_id; }
             set { _cycle_id = value; }
         }
 
-        public string Emne
+        public string messages_emne
         {
             get { return _topic; }
             set { _topic = value; }
         }
 
-        public string Besked
+        public string messages_besked
         {
             get { return _body; }
             set { _body = value; }
         }
 
-        public int status
+        public int messages_status
         {
             get { return _status; }
             set { _status = value; }
@@ -54,12 +54,12 @@ namespace lib
         }
         public Message (int message_id, int user_id, int cycle_id, string topic, string body, int statusVariable)
         {
-            Messages_id = message_id;
-            User_id = user_id;
-            Cycle_id = cycle_id;
-            Emne = topic;
-            Besked = body;
-            status = statusVariable;
+            messages_Id = message_id;
+            messages_user_id = user_id;
+            messages_cycle_id = cycle_id;
+            messages_emne = topic;
+            messages_besked = body;
+            messages_status = statusVariable;
         }
     }
 }
