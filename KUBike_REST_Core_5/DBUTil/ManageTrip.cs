@@ -145,11 +145,13 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
-        private const string AFLUT_TUR_SQL = "update Trip set trip_end = @TEnd where trip_id = @id";
+        private const string AFLUT_TUR_SQL = "update Trip set trip_end = @TEnd, trip_map_json = @map  where trip_id = @id";
 
         public bool AfslutTrip (int id, string time)
         {
             var OK = true;
+            var co = new Coordinate();
+
             using (var conn =new SqlConnection(connString))
             {
                 conn.Open();
@@ -157,6 +159,7 @@ namespace KUBike_REST_Core_5.DBUTil
                 {
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@TEnd", time);
+                    cmd.Parameters.AddWithValue("map", co.ToString());
                     try
                     {
                         var rows = cmd.ExecuteNonQuery();
