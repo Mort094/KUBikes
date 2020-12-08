@@ -15,13 +15,13 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string SQL_GET_ALL_MESSAGE = "select * from messages";
 
-        private const string SQL_GET_ALL_MESSAGE2 = "select * from messages where cycle_id = @Cid";
+        private const string SQL_GET_ALL_MESSAGE2 = "select * from messages where messages_cycle_id = @Cid";
 
         private const string SQL_GET_ONE_MESSAGE = "select * from messages where messages_Id = @Mid";
 
-        private const string SQL_OPRET_MESSAGE = "insert into messages (user_id, cycle_id, Emne, Besked, status) values (@Uid, @Cid, @Emne, @Body, @Status)";
+        private const string SQL_OPRET_MESSAGE = "insert into messages (messages_user_id, messages_cycle_id, messages_emne, messages_besked, messages_status) values (@Uid, @Cid, @messages_emne, @Body, @Status)";
 
-        private const string SQL_STATUS_CODE = "update messages set status = @status where messages_Id = @id";
+        private const string SQL_STATUS_CODE = "update messages set messages_status = @status where messages_Id = @id";
 
         public IList<Message> HentAlle()
         {
@@ -91,11 +91,11 @@ namespace KUBike_REST_Core_5.DBUTil
 
                 using (var cmd = new SqlCommand(SQL_OPRET_MESSAGE, conn))
                 {
-                    cmd.Parameters.AddWithValue("@Uid", message.User_id);
-                    cmd.Parameters.AddWithValue("@Cid", message.Cycle_id);
-                    cmd.Parameters.AddWithValue("@Emne", message.Emne);
-                    cmd.Parameters.AddWithValue("@Body", message.Besked);
-                    cmd.Parameters.AddWithValue("@Status", message.status);
+                    cmd.Parameters.AddWithValue("@Uid", message.messages_user_id);
+                    cmd.Parameters.AddWithValue("@Cid", message.messages_cycle_id);
+                    cmd.Parameters.AddWithValue("@messages_emne", message.messages_emne);
+                    cmd.Parameters.AddWithValue("@Body", message.messages_besked);
+                    cmd.Parameters.AddWithValue("@Status", message.messages_status);
                     try
                     {
                         var rows = cmd.ExecuteNonQuery();
@@ -222,12 +222,12 @@ namespace KUBike_REST_Core_5.DBUTil
         {
             var message = new Message();
 
-            message.Messages_id = reader.GetInt32(0);
-            message.User_id = reader.GetInt32(1);
-            message.Cycle_id = reader.GetInt32(2);
-            message.Emne = reader.GetString(3);
-            message.Besked = reader.GetString(4);
-            message.status = reader.GetInt32(5);
+            message.messages_Id = reader.GetInt32(0);
+            message.messages_user_id = reader.GetInt32(1);
+            message.messages_cycle_id = reader.GetInt32(2);
+            message.messages_emne = reader.GetString(3);
+            message.messages_besked = reader.GetString(4);
+            message.messages_status = reader.GetInt32(5);
 
             return message;
         }
