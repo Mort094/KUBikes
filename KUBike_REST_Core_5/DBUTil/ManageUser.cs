@@ -119,8 +119,8 @@ namespace KUBike_REST_Core_5.DBUTil
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 conn.Open();
-                using (SqlCommand cmd = new SqlCommand(Update_SQL))
-                {
+                using (SqlCommand cmd = new SqlCommand(Update_SQL, conn))
+                 {
                     cmd.Parameters.AddWithValue("@uId", id);
                     cmd.Parameters.AddWithValue("@uName", user.User_firstname);
                     cmd.Parameters.AddWithValue("@uLastname", user.User_lastname);

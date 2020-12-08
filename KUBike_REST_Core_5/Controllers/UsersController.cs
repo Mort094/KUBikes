@@ -44,9 +44,9 @@ namespace KUBike_REST_Core_5.Controllers
         // api/users//updateUser/<id>
         [HttpPut]
         [Route("updateUser/{id}")]
-        public void Put(int id, [FromBody] User value)
+        public bool Put(int id, [FromBody] User value)
         {
-            mgr.UpdateUser(id, value);
+            return mgr.UpdateUser(id, value);
         }
         // GET: api/users/user/<id>
         [HttpGet]
