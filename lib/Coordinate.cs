@@ -11,8 +11,8 @@ namespace lib
 
         public Coordinate()
         {
-            Latitude = Coordinate.RandomNumberBetween(55, 57);
-            Longitude = Coordinate.RandomNumberBetween(12, 13);
+            Latitude = Coordinate.RandomNumberBetween(55.6289, 55.7635);
+            Longitude = Coordinate.RandomNumberBetween(12.3548, 12.6172);
         }
 
 
