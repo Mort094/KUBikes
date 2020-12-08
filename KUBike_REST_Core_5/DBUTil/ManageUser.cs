@@ -121,6 +121,7 @@ namespace KUBike_REST_Core_5.DBUTil
                 conn.Open();
                 using (SqlCommand cmd = new SqlCommand(Update_SQL))
                 {
+                    cmd.Parameters.AddWithValue("@uId", id);
                     cmd.Parameters.AddWithValue("@uName", user.User_firstname);
                     cmd.Parameters.AddWithValue("@uLastname", user.User_lastname);
                     cmd.Parameters.AddWithValue("@uEmail", user.User_email);
@@ -138,7 +139,6 @@ namespace KUBike_REST_Core_5.DBUTil
                 }
 
             }
-
             return OK;
         }
         private const string GETONETEST_SQL = "SELECT * FROM Users WHERE user_id = @uId";
