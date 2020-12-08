@@ -57,7 +57,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return id;
         }
 
-        private const string LOGIN_SQL = "select user_id from Users where user_email = @email and user_password = @password";
+        private const string LOGIN_SQL = "select user_id from Users where user_email = 'string@ku.dk' and user_password = 2 and FK_account_status_id = 1 ";
         public bool Login(string email, string password)
         {
             using (var conn = new SqlConnection(connString))
@@ -69,11 +69,9 @@ namespace KUBike_REST_Core_5.DBUTil
                     cmd.Parameters.AddWithValue("@email", email);
                     cmd.Parameters.AddWithValue("@password", password);
 
-
                     SqlDataReader c = cmd.ExecuteReader();
 
-                    return c.HasRows;
-
+                     return c.HasRows;
                 }
             }
 
@@ -141,6 +139,35 @@ namespace KUBike_REST_Core_5.DBUTil
             }
             return OK;
         }
+
+        private const string DEACTIVATE_SQL = "update users set FK_account_status_id = @delete where user_id = @uid";
+
+        public bool DeactivateUser(int id)
+        {
+            bool OK = true;
+            using(SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                using(SqlCommand cmd = new SqlCommand(DEACTIVATE_SQL, conn))
+                {
+                    cmd.Parameters.AddWithValue("@uid", id);
+                    cmd.Parameters.AddWithValue("@delete", 2);
+
+                    try
+                    {
+                        int rows = cmd.ExecuteNonQuery();
+                        OK = rows == 1;
+                    }
+                    catch
+                    {
+                        OK = false;
+                    }
+                }
+            }
+            return OK;
+        }
+
+
         private const string GETONETEST_SQL = "SELECT * FROM Users WHERE user_id = @uId";
         public User HentEnMedId(int id)
         {

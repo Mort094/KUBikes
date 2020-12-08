@@ -55,6 +55,12 @@ namespace KUBike_REST_Core_5.Controllers
         {
             return mgr.HentEnMedId(id);
         }
+        [HttpPut]
+        [Route("deactivate/{id}")]
+        public bool UserDeactive(int id)
+        {
+            return mgr.DeactivateUser(id);
+        }
         //api/users/<id>
         [HttpDelete]
         [Route("delete/{id}")]
