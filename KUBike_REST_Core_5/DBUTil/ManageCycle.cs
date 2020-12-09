@@ -12,6 +12,11 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ALL_SQL = "select * from cycles where FK_cycle_status_id = 2";
 
+        private const string ADD_CYCLE_SQL = "insert into cycles (cycle_name, cycle_coordinates, FK_cycle_status_id) values (@Cname, @Ccoor, 2)";
+
+        private const string DELETE_CYCLE_SQL = "DELETE FROM cycles WHERE cycle_id = @Cid";
+
+
         public IList<Cycle> HentAlle()
         {
             IList<Cycle> cycles = new List<Cycle>();
@@ -150,6 +155,50 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
+
+       
+        public bool AddCycle(Cycle cycle)
+        {
+            var OK = true;
+
+            using (var conn = new SqlConnection(connString))
+            {
+                conn.Open();
+
+                using (var cmd = new SqlCommand(ADD_CYCLE_SQL, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Cname", cycle.Cycle_name);
+                    cmd.Parameters.AddWithValue("@Ccoor", cycle.Cycle_coordinates);
+
+                    try
+                    {
+                        var rows = cmd.ExecuteNonQuery();
+                        OK = rows == 1;
+                    }
+                    catch (Exception)
+                    {
+                        OK = false;
+                    }
+                }
+            }
+
+            return OK;
+        }
+
+        public Cycle DeleteCycle(int id)
+        {
+            Cycle cycle = HentEn(id);
+            using (SqlConnection conn = new SqlConnection(connString))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(DELETE_CYCLE_SQL, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Cid", id);
+                    int rows = cmd.ExecuteNonQuery();
+                }
+            }
+            return cycle;
+        }
 
         private Cycle ReadNextCycle(SqlDataReader reader)
         {

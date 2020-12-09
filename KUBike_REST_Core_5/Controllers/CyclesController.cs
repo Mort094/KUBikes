@@ -41,10 +41,11 @@ namespace KUBike_REST_Core_5.Controllers
         }
 
         //// POST api/<CyclesController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
+        [HttpPost]
+        public bool Post([FromBody] Cycle value)
+        {
+            return mgr.AddCycle(value);
+        }
 
         //PUT api/<CyclesController>/5
         [HttpPut]
@@ -61,10 +62,13 @@ namespace KUBike_REST_Core_5.Controllers
         {
             return mgr.SlutRute(id);
         }
-        //// DELETE api/<CyclesController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
+
+
+        // DELETE api/<CyclesController>/5
+        [HttpDelete("{id}")]
+        public Cycle Delete(int id)
+        {
+            return mgr.DeleteCycle(id);
+        }
     }
 }
