@@ -78,7 +78,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         }
 
-        private const string INSERT_SQL = "insert into Users (user_firstname, user_lastname, user_email, user_password, user_mobile, FK_account_status_id) values (@fname, @lname, @email, @password, @mobile, @asid)";
+        private const string INSERT_SQL = "insert into Users (user_firstname, user_lastname, user_email, user_password, user_mobile, FK_account_status_id, user_question_one, user_answer_one, user_question_two, user_answer_two, user_question_three, user_answer_three) values (@fname, @lname, @email, @password, @mobile, @asid, @Qone, @Aone, @Qtwo, @Atwo, @Qthree, @Athree)";
 
         public bool OpretUser(User user)
         {
@@ -96,7 +96,12 @@ namespace KUBike_REST_Core_5.DBUTil
                     cmd.Parameters.AddWithValue("@password", user.User_password);
                     cmd.Parameters.AddWithValue("@mobile", user.User_mobile);
                     cmd.Parameters.AddWithValue("@asid", 1);
-
+                    cmd.Parameters.AddWithValue("@Qone", user.UserQuestionOne);
+                    cmd.Parameters.AddWithValue("@Aone", user.UserAnswerOne);
+                    cmd.Parameters.AddWithValue("@Qtwo", user.UserQuestionTwo);
+                    cmd.Parameters.AddWithValue("@Atwo", user.UserAnswerTwo);
+                    cmd.Parameters.AddWithValue("@Qthree", user.UserQuestionThree);
+                    cmd.Parameters.AddWithValue("@Athree", user.UserAnswerThree);
                     try
                     {
                         var rows = cmd.ExecuteNonQuery();
@@ -219,7 +224,12 @@ namespace KUBike_REST_Core_5.DBUTil
             user.User_password = reader.GetString(4);
             user.User_mobile = reader.GetInt32(5);
             user.Account_status_id = reader.GetInt32(6);
-
+            user.UserQuestionOne = reader.GetString(7);
+            user.UserAnswerOne = reader.GetString(8);
+            user.UserQuestionTwo = reader.GetString(9);
+            user.UserAnswerTwo = reader.GetString(10);
+            user.UserQuestionThree = reader.GetString(11);
+            user.UserAnswerThree = reader.GetString(12);
 
             return user;
         }
