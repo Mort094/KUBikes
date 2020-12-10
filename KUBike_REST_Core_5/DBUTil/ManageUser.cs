@@ -17,7 +17,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ALL_SQL = "select * from Users";
 
-        private const string GET_ONE_SQL = "select user_id from Users where user_email = @email";
+        private const string GET_ONE_SQL = "select User_id from Users where User_email = @email";
 
 
 
@@ -58,7 +58,7 @@ namespace KUBike_REST_Core_5.DBUTil
         }
 
         //private const string LOGIN_SQL = "select user_id from Users where user_email = @email and user_password = @password";
-        private const string LOGIN_SQL = "select user_id from Users where user_email = @email and user_password = @password and FK_account_status_id = 1 ";
+        private const string LOGIN_SQL = "select User_id from Users where User_email = @email and User_password = @password and Account_status_id = 1 ";
         public bool Login(string email, string password)
         {
             using (var conn = new SqlConnection(connString))
@@ -116,7 +116,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
             return OK;
         }
-        private const string Update_SQL = "UPDATE users SET user_firstname = @uName, user_lastname = @uLastname, user_email = @uEmail, user_mobile = @uMobile WHERE user_id = @uId";
+        private const string Update_SQL = "UPDATE users SET User_firstname = @uName, User_lastname = @uLastname, User_email = @uEmail, User_mobile = @uMobile WHERE User_id = @uId";
         public bool UpdateUser(int id, User user)
         {
             bool OK = true;
@@ -146,7 +146,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
-        private const string DEACTIVATE_SQL = "update users set FK_account_status_id = @delete where user_id = @uid";
+        private const string DEACTIVATE_SQL = "update users set Account_status_id = @delete where User_id = @uid";
 
         public bool DeactivateUser(int id)
         {
@@ -174,7 +174,7 @@ namespace KUBike_REST_Core_5.DBUTil
         }
 
 
-        private const string GETONETEST_SQL = "SELECT * FROM Users WHERE user_id = @uId";
+        private const string GETONETEST_SQL = "SELECT * FROM Users WHERE User_id = @uId";
         public User HentEnMedId(int id)
         {
             User user = new User();
@@ -194,7 +194,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return user;
         }
 
-        private const string DELETE_SQL = "DELETE FROM Users WHERE user_id = @uId";
+        private const string DELETE_SQL = "DELETE FROM Users WHERE User_id = @uId";
         public User DeleteUser(int id)
         {
             User user = HentEnMedId(id);
