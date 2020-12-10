@@ -23,7 +23,7 @@ namespace KUBike_REST_Core_5.DBUTil
         //sql command to POST new cycle
         private const string ADD_CYCLE_SQL = "insert into cycles (cycle_name, cycle_coordinates, FK_cycle_status_id) values (@Cname, @Ccoor, 2)";
         //sql command to DELETE one cycle from id
-        private const string DELETE_CYCLE_SQL = "DELETE FROM cycles WHERE cycle_id = @Cid and FK_cycle_status_id = 2";
+        private const string DELETE_CYCLE_SQL = "DELETE FROM cycles WHERE cycle_id = @Cid and FK_cycle_status_id = @Fid";
 
 
 
@@ -190,6 +190,7 @@ namespace KUBike_REST_Core_5.DBUTil
                 {
                     cmd.Parameters.AddWithValue("@Cname", cycle.Cycle_name);
                     cmd.Parameters.AddWithValue("@Ccoor", cycle.Cycle_coordinates);
+                    cmd.Parameters.AddWithValue("@Fid", 2);
 
                     try
                     {
