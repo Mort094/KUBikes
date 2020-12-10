@@ -57,8 +57,8 @@ namespace KUBike_REST_Core_5.DBUTil
             return id;
         }
 
-        private const string LOGIN_SQL = "select user_id from Users where user_email = @email and user_password = @password";
-        // private const string LOGIN_SQL = "select user_id from Users where user_email = 'string@ku.dk' and user_password = 2 and FK_account_status_id = 1 ";
+        //private const string LOGIN_SQL = "select user_id from Users where user_email = @email and user_password = @password";
+        private const string LOGIN_SQL = "select user_id from Users where user_email = @email and user_password = @password and FK_account_status_id = 1 ";
         public bool Login(string email, string password)
         {
             using (var conn = new SqlConnection(connString))
