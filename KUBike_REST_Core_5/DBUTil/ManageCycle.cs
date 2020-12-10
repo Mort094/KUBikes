@@ -217,6 +217,7 @@ namespace KUBike_REST_Core_5.DBUTil
                 using (SqlCommand cmd = new SqlCommand(DELETE_CYCLE_SQL, conn))
                 {
                     cmd.Parameters.AddWithValue("@Cid", id);
+                    cmd.Parameters.AddWithValue("@Fid", 2);
                     int rows = cmd.ExecuteNonQuery();
                 }
             }
