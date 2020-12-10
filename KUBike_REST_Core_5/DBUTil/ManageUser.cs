@@ -78,7 +78,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         }
 
-        private const string INSERT_SQL = "insert into Users (user_firstname, user_lastname, user_email, user_password, user_mobile, FK_account_status_id, user_question_one, user_answer_one, user_question_two, user_answer_two, user_question_three, user_answer_three) values (@fname, @lname, @email, @password, @mobile, @asid, @Qone, @Aone, @Qtwo, @Atwo, @Qthree, @Athree)";
+        private const string INSERT_SQL = "insert into Users (User_firstname, User_lastname, User_email, User_password, User_mobile, Account_status_id, UserQuestionOne, UserAnswerOne, UserQuestionTwo, UserAnswerTwo, UserQuestionThree, UserAnswerThree) values (@fname, @lname, @email, @password, @mobile, @asid, @Qone, @Aone, @Qtwo, @Atwo, @Qthree, @Athree)";
 
         public bool OpretUser(User user)
         {
