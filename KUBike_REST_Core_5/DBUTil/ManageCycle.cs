@@ -20,6 +20,8 @@ namespace KUBike_REST_Core_5.DBUTil
         private const string GET_AVAILABLE_ONE_SQL = "select * from cycles where cycle_id = @id and FK_cycle_status_id = 2";
         //sql command to PUT change of bike status between available and in use.
         private const string UPDATESTATUS_SQL = "update cycles set FK_cycle_status_id = @start where cycle_id = @id";
+        //sql command to PUT change of bike status between available and in use with coordinates for end trip.
+        private const string UPDATESTATUS_SQL_END = "update cycles set FK_cycle_status_id = @start, cycle_coordinates = @Ccoor where cycle_id = @id";
         //sql command to POST new cycle
         private const string ADD_CYCLE_SQL = "insert into cycles (cycle_name, cycle_coordinates, FK_cycle_status_id) values (@Cname, @Ccoor, 2)";
         //sql command to DELETE one cycle from id
@@ -151,15 +153,17 @@ namespace KUBike_REST_Core_5.DBUTil
         public bool SlutRute(int id)
             {
             bool OK = true;
+            var co = new Coordinate();
 
             using (SqlConnection conn = new SqlConnection(connString))
             {
                 conn.Open();
 
-                using (SqlCommand cmd = new SqlCommand(UPDATESTATUS_SQL, conn))
+                using (SqlCommand cmd = new SqlCommand(UPDATESTATUS_SQL_END, conn))
                 {
                     cmd.Parameters.AddWithValue("@id", id);
                     cmd.Parameters.AddWithValue("@start", 2);
+                    cmd.Parameters.AddWithValue("@Ccoor", co.ToString());
 
                     try
                     {
@@ -181,6 +185,7 @@ namespace KUBike_REST_Core_5.DBUTil
         public bool AddCycle(Cycle cycle)
         {
             var OK = true;
+            var co = new Coordinate();
 
             using (var conn = new SqlConnection(connString))
             {
@@ -189,7 +194,7 @@ namespace KUBike_REST_Core_5.DBUTil
                 using (var cmd = new SqlCommand(ADD_CYCLE_SQL, conn))
                 {
                     cmd.Parameters.AddWithValue("@Cname", cycle.Cycle_name);
-                    cmd.Parameters.AddWithValue("@Ccoor", cycle.Cycle_coordinates);
+                    cmd.Parameters.AddWithValue("@Ccoor", co.ToString());
                     cmd.Parameters.AddWithValue("@Fid", 2);
 
                     try
