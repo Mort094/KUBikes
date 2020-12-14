@@ -6,6 +6,7 @@ namespace lib
 {
     public class Message
     {
+        //Instansfelter
         private int _message_id;
         private int _user_id;
         private int _cycle_id;
@@ -13,6 +14,8 @@ namespace lib
         private string _body;
         private int _status;
 
+
+        //Properties defineret
         public int messages_Id
         {
             get { return _message_id; }
@@ -48,10 +51,14 @@ namespace lib
             get { return _status; }
             set { _status = value; }
         }
+
+        // En Constructor der lavet til at man kan kalde på klassen uden at indsæt variabler
         public Message ()
         {
 
         }
+
+        //Constructor til at man kan indsætte de ønsket værdier
         public Message (int message_id, int user_id, int cycle_id, string topic, string body, int statusVariable)
         {
             messages_Id = message_id;

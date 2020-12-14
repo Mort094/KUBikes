@@ -4,16 +4,20 @@ namespace lib
 {
     public class User
     {
+        //Instansfelter
         private string _user_firstname;
         private string _user_lastname;
         private string _user_email;
         private string _user_password;
         private int _user_mobile;
         private int _account_status_id;
+
+        // En Constructor der lavet til at man kan kalde på klassen uden at indsæt variabler
         public User()
         {
         }
 
+        // En Constructor der lavet til at man kan kalde på klassen uden at indsæt variabler
         public User(int user_id, string user_firstname, string user_lastname, string user_email, string user_password, int user_mobile, int account_status_id)
         {
             User_id = user_id;
@@ -25,6 +29,7 @@ namespace lib
             _account_status_id = account_status_id;
         }
 
+        //Properties defineret og der er tilføjet property test der tester om den opfylder de krav der er tilføjet
         public int User_id
         {
             get; set;

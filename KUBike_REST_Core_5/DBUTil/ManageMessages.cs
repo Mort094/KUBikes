@@ -23,6 +23,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string SQL_STATUS_CODE = "update messages set messages_status = @status where messages_Id = @id";
 
+        //En Hent-alle metode som skal create en list af alle Trips
         public IList<Message> HentAlle()
         {
             IList<Message> messages = new List<Message>();
@@ -39,7 +40,8 @@ namespace KUBike_REST_Core_5.DBUTil
 
             return messages;
         }
-        
+
+        // Hent-alle-Med-Cykel metode som skal create en list af alle message baseret cycle_id
         public IList<Message> HentAlleMedCykel(int id)
         {
             IList<Message> messages = new List<Message>();
@@ -58,6 +60,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return messages;
         }
 
+        //Hent-En metode som henter en Message baseret på en id som er en int
         public Message HentEn(int id)
         {
             Message message = new Message();
@@ -81,6 +84,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return message;
         }
 
+        //Opret tager alle vores varibler og indsætter dem som parameter som vi kan POST.
         public bool OpretMessage(Message message)
         {
             var OK = true;
@@ -111,6 +115,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
+        //SetStatusOne bliver sat i messages_Id til 1
         public bool SetStatusOne(int id)
         {
             bool OK = true;
@@ -138,7 +143,7 @@ namespace KUBike_REST_Core_5.DBUTil
         }
 
 
-
+        //SetStatusTwp bliver sat i messages_Id til 2
         public bool SetStatustwo(int id)
         {
             bool OK = true;
@@ -165,6 +170,7 @@ namespace KUBike_REST_Core_5.DBUTil
             }
         }
 
+        //SetStatusthree bliver sat i messages_Id til 3
         public bool SetStatusthree(int id)
         {
             bool OK = true;
@@ -190,7 +196,7 @@ namespace KUBike_REST_Core_5.DBUTil
                 return OK;
             }
         }
-
+        //SetStatusStolen bliver sat i messages_Id til 4
         public bool SetStatusStolen(int id)
         {
             bool OK = true;
@@ -217,7 +223,7 @@ namespace KUBike_REST_Core_5.DBUTil
             }
         }
 
-
+        //Den læser parameters igennem i Message
         private Message ReadNextMessage(SqlDataReader reader)
         {
             var message = new Message();

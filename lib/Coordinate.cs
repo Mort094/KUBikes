@@ -8,7 +8,7 @@ namespace lib
     public class Coordinate
     {
    
-
+       //Constructor er lavet til at klassen skal har two metoder implementeret i vores properties. Vi har benyttet også af en RandomNumberBetween metode.
         public Coordinate()
         {
             Latitude = Coordinate.RandomNumberBetween(55.6289, 55.7635);
@@ -16,13 +16,13 @@ namespace lib
         }
 
 
-
+        //Properties defineret
        public double Latitude { get; set; }
        public double Longitude { get;  set ; }
 
-
+        //Random er erklaret
         private static readonly Random random = new Random();
-
+        //Metoden RandomNumberBetween er lavet igennem en max og min værdi.
         private static double RandomNumberBetween(double minValue, double maxValue)
         {
             var next = random.NextDouble();
@@ -31,7 +31,7 @@ namespace lib
         }
 
 
-
+        //ToString metode bruges til at sende result som en string og i den ønsket format
 
         public override string ToString()
         {

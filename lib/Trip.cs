@@ -6,7 +6,7 @@ namespace lib
 {
     public class Trip
     {
-        
+        //Constructor til at man kan indsætte de ønsket værdier
         public Trip(int trip_id, string trip_start, string trip_end, string trip_map_json, int cycle_id, int user_id)
         {
             Trip_id = trip_id;
@@ -17,11 +17,14 @@ namespace lib
             User_id = user_id;
         }
 
+        // En Constructor der lavet til at man kan kalde på klassen uden at indsæt variabler
         public Trip()
         {
            
         }
 
+
+        //Properties defineret
         public int Trip_id { get; set; }
         public string Trip_start { get; set; }
         public string Trip_end { get; set; }

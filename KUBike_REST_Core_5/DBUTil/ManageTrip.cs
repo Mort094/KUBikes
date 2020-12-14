@@ -27,6 +27,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ALL_BIKES_FROM_ACTIVE_ROUTES = "select cycle_id from trip where trip_end = 'Awaiting End'";
 
+        //En Hent-alle metode som skal create en list af alle Trips
         public IList<Trip> HentAlle()
         {
             IList<Trip> trips = new List<Trip>();
@@ -44,6 +45,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return trips;
         }
 
+        // Hent-alle-User-Trips metode som skal create en list af alle usertrips baseret user_id
         public IList<int> HentAlleUserTrips(int id)
         {
             IList<int> trips = new List<int>();
@@ -60,6 +62,8 @@ namespace KUBike_REST_Core_5.DBUTil
             return trips;
         }
 
+
+        //Hent-Alle-Aktive-Cykler-Fra-Ruter laver en liste af aktive cykler og henter alle cykel id der ikke er i brug
         public IList<int> HentAlleAktiveCyklerFraRuter()
         {
             IList<int> cycleTrips = new List<int>();
@@ -75,6 +79,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return cycleTrips;
         }
 
+        //Hent-En metode som henter en trip baseret på en id som er en int
         public Trip HentEn(int id)
         {
             var trip = new Trip();
@@ -94,6 +99,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return trip;
         }
 
+        //Hent-En-Med-Bruger henter en trip id der bruger parameter userid og cycleID
         public int HentEnMedBruger(int userid, int CycleID)
         {
             int id = 0;
@@ -114,6 +120,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string OPRET_TUR_SQL = "insert into Trip (trip_start, trip_end, trip_map_json, cycle_id , user_id) values (@tstart, @tslut, @map, @cycleID, @userID)";
 
+        //Opret tager alle vores varibler og indsætter dem som parameter som vi kan POST.
         public bool OpretTrip(Trip trip)
         {
             var OK = true;
@@ -146,7 +153,7 @@ namespace KUBike_REST_Core_5.DBUTil
         }
 
         private const string AFLUT_TUR_SQL = "update Trip set trip_end = @TEnd, trip_map_json = @map  where trip_id = @id";
-
+        //Afslut tager tripid og time til at return en true/false statement. 
         public bool AfslutTrip (int id, string time)
         {
             var OK = true;
@@ -174,6 +181,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
+        //Den læser parameters igennem i Trip
         private Trip ReadNextTrip(SqlDataReader reader)
         {
             var trip = new Trip();

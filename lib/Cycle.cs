@@ -6,10 +6,12 @@ namespace lib
 {
     public class Cycle
     {
+        // En Constructor der lavet til at man kan kalde på klassen uden at indsæt variabler
         public Cycle()
         {
         }
 
+        //Constructor til at man kan indsætte de ønsket værdier
         public Cycle(int cycle_id, string cycle_name, string cycle_coordinates, int cycle_status_id)
         {
             Cycle_id = cycle_id;
@@ -18,6 +20,7 @@ namespace lib
             Cycle_status_id = cycle_status_id;
         }
 
+        //Properties defineret
         public int Cycle_id { get; set; }
         public string Cycle_name { get; set; }
         public string Cycle_coordinates { get; set; }

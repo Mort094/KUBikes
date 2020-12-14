@@ -21,7 +21,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
 
 
-
+        //En Hent-alle metode som skal create en list af alle users
         public IList<User> HentAlle()
         {
             IList<User> users = new List<User>();
@@ -39,6 +39,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return users;
         }
 
+        //Hent-En metode som henter en user baseret på en email som er en string
         public int HentEn(string email)
         {
             int id = 0;
@@ -59,6 +60,8 @@ namespace KUBike_REST_Core_5.DBUTil
 
         //private const string LOGIN_SQL = "select user_id from Users where user_email = @email and user_password = @password";
         private const string LOGIN_SQL = "select user_id from Users where user_email = @email and user_password = @password and FK_account_status_id = 1 ";
+
+        //Login er lavet til at få en true/false statement som tjekker og en email stemmer overens med en email og password.
         public bool Login(string email, string password)
         {
             using (var conn = new SqlConnection(connString))
@@ -80,6 +83,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string INSERT_SQL = "insert into Users (user_firstname, user_lastname, user_email, user_password, user_mobile, FK_account_status_id) values (@fname, @lname, @email, @password, @mobile, @asid)";
 
+        //Opret tager alle vores varibler og indsætter dem som parameter som vi kan POST.
         public bool OpretUser(User user)
         {
             var OK = true;
@@ -112,6 +116,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
         private const string Update_SQL = "UPDATE users SET user_firstname = @uName, user_lastname = @uLastname, user_email = @uEmail, user_mobile = @uMobile WHERE user_id = @uId";
+        //UpdaterUser updater alle parameter som er indsat og den tjekker hvilke id der er blevet id.
         public bool UpdateUser(int id, User user)
         {
             bool OK = true;
@@ -142,7 +147,7 @@ namespace KUBike_REST_Core_5.DBUTil
         }
 
         private const string DEACTIVATE_SQL = "update users set FK_account_status_id = @delete where user_id = @uid";
-
+        //DeactiveUser ændre AccountStatus til 2 hvilket betyder at du ikke kan logge ind, men der skal først indsat et id som skal har accountstatus til 2.
         public bool DeactivateUser(int id)
         {
             bool OK = true;
@@ -168,7 +173,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
-
+        //Hent-EnMedID metode som henter en user baseret på en id som er en int
         private const string GETONETEST_SQL = "SELECT * FROM Users WHERE user_id = @uId";
         public User HentEnMedId(int id)
         {
@@ -189,6 +194,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return user;
         }
 
+        //Delete metode henter en user baseret på en id som er en int, derefter sletter metoden useren med det pågældende id.
         private const string DELETE_SQL = "DELETE FROM Users WHERE user_id = @uId";
         public User DeleteUser(int id)
         {
@@ -208,6 +214,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return user;
         }
 
+        //Den læser parameters igennem i User
         private User ReadNextUser(SqlDataReader reader)
         {
             var user = new User();
