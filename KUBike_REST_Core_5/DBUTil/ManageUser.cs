@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using lib;
@@ -17,7 +17,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         private const string GET_ALL_SQL = "select * from Users";
 
-        private const string GET_ONE_SQL = "select user_id from Users where user_email = @email";
+        private const string GET_ONE_SQL = "select User_id from Users where User_email = @email";
 
 
 
@@ -59,9 +59,7 @@ namespace KUBike_REST_Core_5.DBUTil
         }
 
         //private const string LOGIN_SQL = "select user_id from Users where user_email = @email and user_password = @password";
-        private const string LOGIN_SQL = "select user_id from Users where user_email = @email and user_password = @password and FK_account_status_id = 1 ";
-
-        //Login er lavet til at få en true/false statement som tjekker og en email stemmer overens med en email og password.
+        private const string LOGIN_SQL = "select User_id from Users where User_email = @email and User_password = @password and Account_status_id = 1 ";
         public bool Login(string email, string password)
         {
             using (var conn = new SqlConnection(connString))
@@ -81,7 +79,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
         }
 
-        private const string INSERT_SQL = "insert into Users (user_firstname, user_lastname, user_email, user_password, user_mobile, FK_account_status_id) values (@fname, @lname, @email, @password, @mobile, @asid)";
+        private const string INSERT_SQL = "insert into Users (User_firstname, User_lastname, User_email, User_password, User_mobile, Account_status_id, UserQuestionOne, UserAnswerOne, UserQuestionTwo, UserAnswerTwo, UserQuestionThree, UserAnswerThree) values (@fname, @lname, @email, @password, @mobile, @asid, @Qone, @Aone, @Qtwo, @Atwo, @Qthree, @Athree)";
 
         //Opret tager alle vores varibler og indsætter dem som parameter som vi kan POST.
         public bool OpretUser(User user)
@@ -100,7 +98,12 @@ namespace KUBike_REST_Core_5.DBUTil
                     cmd.Parameters.AddWithValue("@password", user.User_password);
                     cmd.Parameters.AddWithValue("@mobile", user.User_mobile);
                     cmd.Parameters.AddWithValue("@asid", 1);
-
+                    cmd.Parameters.AddWithValue("@Qone", user.UserQuestionOne);
+                    cmd.Parameters.AddWithValue("@Aone", user.UserAnswerOne);
+                    cmd.Parameters.AddWithValue("@Qtwo", user.UserQuestionTwo);
+                    cmd.Parameters.AddWithValue("@Atwo", user.UserAnswerTwo);
+                    cmd.Parameters.AddWithValue("@Qthree", user.UserQuestionThree);
+                    cmd.Parameters.AddWithValue("@Athree", user.UserAnswerThree);
                     try
                     {
                         var rows = cmd.ExecuteNonQuery();
@@ -115,8 +118,7 @@ namespace KUBike_REST_Core_5.DBUTil
 
             return OK;
         }
-        private const string Update_SQL = "UPDATE users SET user_firstname = @uName, user_lastname = @uLastname, user_email = @uEmail, user_mobile = @uMobile WHERE user_id = @uId";
-        //UpdaterUser updater alle parameter som er indsat og den tjekker hvilke id der er blevet id.
+        private const string Update_SQL = "UPDATE users SET User_firstname = @uName, User_lastname = @uLastname, User_email = @uEmail, User_mobile = @uMobile WHERE User_id = @uId";
         public bool UpdateUser(int id, User user)
         {
             bool OK = true;
@@ -146,8 +148,8 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
-        private const string DEACTIVATE_SQL = "update users set FK_account_status_id = @delete where user_id = @uid";
-        //DeactiveUser ændre AccountStatus til 2 hvilket betyder at du ikke kan logge ind, men der skal først indsat et id som skal har accountstatus til 2.
+        private const string DEACTIVATE_SQL = "update users set Account_status_id = @delete where User_id = @uid";
+
         public bool DeactivateUser(int id)
         {
             bool OK = true;
@@ -173,8 +175,8 @@ namespace KUBike_REST_Core_5.DBUTil
             return OK;
         }
 
-        //Hent-EnMedID metode som henter en user baseret på en id som er en int
-        private const string GETONETEST_SQL = "SELECT * FROM Users WHERE user_id = @uId";
+
+        private const string GETONETEST_SQL = "SELECT * FROM Users WHERE User_id = @uId";
         public User HentEnMedId(int id)
         {
             User user = new User();
@@ -194,8 +196,7 @@ namespace KUBike_REST_Core_5.DBUTil
             return user;
         }
 
-        //Delete metode henter en user baseret på en id som er en int, derefter sletter metoden useren med det pågældende id.
-        private const string DELETE_SQL = "DELETE FROM Users WHERE user_id = @uId";
+        private const string DELETE_SQL = "DELETE FROM Users WHERE User_id = @uId";
         public User DeleteUser(int id)
         {
             User user = HentEnMedId(id);
@@ -226,7 +227,12 @@ namespace KUBike_REST_Core_5.DBUTil
             user.User_password = reader.GetString(4);
             user.User_mobile = reader.GetInt32(5);
             user.Account_status_id = reader.GetInt32(6);
-
+            user.UserQuestionOne = reader.GetString(7);
+            user.UserAnswerOne = reader.GetString(8);
+            user.UserQuestionTwo = reader.GetString(9);
+            user.UserAnswerTwo = reader.GetString(10);
+            user.UserQuestionThree = reader.GetString(11);
+            user.UserAnswerThree = reader.GetString(12);
 
             return user;
         }
