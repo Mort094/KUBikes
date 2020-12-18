@@ -8,7 +8,8 @@ namespace lib
     public class Coordinate
     {
    
-       //Constructor er lavet til at klassen skal har two metoder implementeret i vores properties. Vi har benyttet også af en RandomNumberBetween metode.
+        //Constructor er lavet til at klassen skal har two metoder implementeret i vores properties.
+        //Vi har benyttet også af en RandomNumberBetween metode.
         public Coordinate()
         {
             Latitude = Coordinate.RandomNumberBetween(55.6289, 55.7635);
